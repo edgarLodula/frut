@@ -27,6 +27,8 @@ function preload(){
   blink = loadAnimation("blink_1.png","blink_2.png","blink_3.png");
   eat = loadAnimation("eat_0.png" , "eat_1.png","eat_2.png","eat_3.png","eat_4.png");
   sad = loadAnimation("sad_1.png","sad_2.png","sad_3.png");
+  eat.looping=false
+  sad.looping=false
 }
 
 function setup(){
@@ -40,7 +42,9 @@ function setup(){
   cut.position(220,190)
   cut.size(60,60)
   cut.mouseClicked(drop)
-  
+  blink.frameDelay= 10
+  eat.frameDelay=20
+  sad.frameDelay=20
   rabbit2=createSprite(250,620,20,20)
   rabbit2.addAnimation('blinking',blink);  // começa com essa! 
   rabbit2.addAnimation('eating',eat);
@@ -65,8 +69,15 @@ function draw() {
 
   ground.show();
   corda.show();
+  if(fruta!=null){
   image(melon,fruta.position.x,fruta.position.y,60,60);
-
+}
+  if(touch(fruta,rabbit2)){
+    rabbit2.changeAnimation("eating")
+  }
+  if(touch(fruta,ground.body)){
+    rabbit2.changeAnimation("crying")
+  }
   Engine.update(engine);
 }
 
@@ -74,4 +85,16 @@ function drop(){
   corda.break()
   link.Break()
   link=null
+}
+function touch(frut,sprite){
+if(frut!=null){
+  var d=dist(frut.position.x,frut.position.y, sprite.position.x,sprite.position.y)
+if(d<=80){
+  World.remove(world,frut)
+  fruta=null
+  return true
+}else{
+  return false
+}
+}
 }
