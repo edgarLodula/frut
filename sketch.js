@@ -19,6 +19,13 @@ var cut;
 var rabbit,rabbit2;
 var blink,eat,sad;
 
+
+var bk_song;  // SOM DO BG
+var cut_sound;  // SOM CORTANTO A CORDA
+var sad_sound;  // SOM TRISTE
+var eating_sound; // SOM COMENDO
+var air;  /// SOM DO AR
+
 function preload(){
   room=loadImage("background.png");
   melon=loadImage("melon.png");
@@ -27,6 +34,14 @@ function preload(){
   blink = loadAnimation("blink_1.png","blink_2.png","blink_3.png");
   eat = loadAnimation("eat_0.png" , "eat_1.png","eat_2.png","eat_3.png","eat_4.png");
   sad = loadAnimation("sad_1.png","sad_2.png","sad_3.png");
+  
+  bk_song = loadSound('sound1.mp3');
+  sad_sound = loadSound("sad.wav")
+  cut_sound = loadSound('rope_cut.mp3');
+  eating_sound = loadSound('eating_sound.mp3');
+  air = loadSound('air.wav');
+  
+  
   eat.looping=false
   sad.looping=false
 }
@@ -37,7 +52,7 @@ function setup(){
   engine = Engine.create();
   world = engine.world;
   ground = new Ground(200,680,600,20);
-
+  
   cut=createImg("cut_btn.png")
   cut.position(220,190)
   cut.size(60,60)
@@ -75,8 +90,10 @@ function draw() {
   if(touch(fruta,rabbit2)){
     rabbit2.changeAnimation("eating")
   }
-  if(touch(fruta,ground.body)){
+  //if(touch(fruta,ground.body)){
+    if(fruta!=null && fruta.position.y>=650) {
     rabbit2.changeAnimation("crying")
+    fruta=null;
   }
   Engine.update(engine);
 }
