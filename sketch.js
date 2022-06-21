@@ -56,17 +56,25 @@ function preload(){
 }
 
 function setup(){
-  createCanvas(500,700);
-  
+  //createCanvas(500,700);
+  var mobile= /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+  if(mobile){
+    createCanvas(displayWidth+80,displayHeight)
+    canH=displayHeight
+  }
+  else{
+    createCanvas(windowWidth,windowHeight)
+    canH=windowHeight
+  }
   frameRate(80);
   engine = Engine.create();
   world = engine.world;
-  ground = new Ground(200,680,600,20);
+  ground = new Ground(200,canH-20,600,20);
 
   blink.frameDelay= 10;
   eat.frameDelay=20;
   sad.frameDelay=20;
-  rabbit2=createSprite(400,620,20,20);
+  rabbit2=createSprite(400,canH-80,20,20);
   rabbit2.addAnimation('blinking',blink);  // começa com essa! 
   rabbit2.addAnimation('eating',eat);
   rabbit2.addAnimation('crying',sad);
@@ -110,7 +118,7 @@ function setup(){
 
 function draw() {
   background(51);
-  image(room,250,350,500,700);
+  image(room,250,350,displayWidth+80,displayHeight);
   drawSprites();
 
   ground.show();
