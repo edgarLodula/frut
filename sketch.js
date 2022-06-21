@@ -69,12 +69,12 @@ function setup(){
   frameRate(80);
   engine = Engine.create();
   world = engine.world;
-  ground = new Ground(200,canH-20,600,20);
+  ground = new Ground(200,canH-40,600,20);
 
   blink.frameDelay= 10;
   eat.frameDelay=20;
   sad.frameDelay=20;
-  rabbit2=createSprite(400,canH-80,20,20);
+  rabbit2=createSprite(400,canH-160,20,20);
   rabbit2.addAnimation('blinking',blink);  // começa com essa! 
   rabbit2.addAnimation('eating',eat);
   rabbit2.addAnimation('crying',sad);
